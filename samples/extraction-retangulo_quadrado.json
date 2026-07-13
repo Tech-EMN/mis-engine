@@ -1,0 +1,100 @@
+{
+  "claude": {
+    "elapsed_s": 8.6,
+    "tokens_in": 2019,
+    "tokens_out": 490,
+    "result": {
+      "plan_type": "retangulo",
+      "rooms": [
+        {
+          "name": "Ambiente Principal",
+          "shape": "rectangle",
+          "width_m": 20.0,
+          "length_m": 10.0,
+          "area_m2": 200.0,
+          "perimeter_m": 60.0,
+          "confidence": 1.0
+        },
+        {
+          "name": "Ambiente Interno",
+          "shape": "square",
+          "width_m": 5.0,
+          "length_m": 5.0,
+          "area_m2": 25.0,
+          "perimeter_m": 20.0,
+          "confidence": 1.0
+        }
+      ],
+      "walls": [
+        {
+          "thickness_cm": 15,
+          "is_demolition": false,
+          "location": "perimeter_walls"
+        },
+        {
+          "thickness_cm": 15,
+          "is_demolition": false,
+          "location": "internal_room_walls"
+        }
+      ],
+      "openings": [],
+      "overall_dimensions": {
+        "total_width_m": 20.0,
+        "total_length_m": 10.0,
+        "total_area_m2": 200.0,
+        "confidence": 1.0
+      },
+      "notes": "Floor plan shows clear dimension lines (cotas) indicating a 20.00m x 10.00m rectangular outer space with a centered 5.00m x 5.00m square internal room. The scale is indicated as 1:50. No doors or windows are clearly marked in the plan. Wall thickness estimated at approximately 15cm based on typical architectural standards. Drawing date: 25/06/2026, Revision: R00, Sheet: 03/03. Client: IMOBILIÁRIA, Location: SÃO PAULO. All measurements have high confidence due to explicit dimensional annotations."
+    }
+  },
+  "gemini": {
+    "elapsed_s": 6.4,
+    "result": {
+      "plan_type": "combinação",
+      "rooms": [
+        {
+          "name": "Ambiente 1 (Exterior)",
+          "shape": "rectangle",
+          "width_m": 20.0,
+          "length_m": 10.0,
+          "area_m2": 200.0,
+          "perimeter_m": 60.0,
+          "confidence": 1.0
+        },
+        {
+          "name": "Ambiente 2 (Interior)",
+          "shape": "square",
+          "width_m": 5.0,
+          "length_m": 5.0,
+          "area_m2": 25.0,
+          "perimeter_m": 20.0,
+          "confidence": 1.0
+        }
+      ],
+      "walls": [],
+      "openings": [],
+      "overall_dimensions": {
+        "width_m": 20.0,
+        "length_m": 10.0
+      },
+      "notes": "The plan shows two distinct geometric shapes: a large outer rectangle and a smaller inner square. All dimensions are explicitly provided by cotas, leading to high confidence in measurements. No wall thickness is indicated, as walls are represented by single lines. There are no doors or windows shown in this plan. Room functions are not labeled."
+    },
+    "usage": {
+      "promptTokenCount": 695,
+      "candidatesTokenCount": 335,
+      "totalTokenCount": 1886,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 437
+        },
+        {
+          "modality": "IMAGE",
+          "tokenCount": 258
+        }
+      ],
+      "thoughtsTokenCount": 856,
+      "serviceTier": "standard"
+    }
+  }
+}

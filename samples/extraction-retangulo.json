@@ -1,0 +1,76 @@
+{
+  "claude": {
+    "elapsed_s": 8.2,
+    "tokens_in": 2019,
+    "tokens_out": 375,
+    "result": {
+      "plan_type": "retangulo",
+      "rooms": [
+        {
+          "name": "Ambiente Principal",
+          "shape": "rectangle",
+          "width_m": 10.0,
+          "length_m": 20.0,
+          "area_m2": 200.0,
+          "perimeter_m": 60.0,
+          "confidence": 1.0
+        }
+      ],
+      "walls": [
+        {
+          "thickness_cm": 15,
+          "is_demolition": false
+        }
+      ],
+      "openings": [],
+      "overall_dimensions": {
+        "width_m": 10.0,
+        "length_m": 20.0,
+        "total_area_m2": 200.0,
+        "confidence": 1.0
+      },
+      "notes": "This is a simple rectangular floor plan with clear dimension lines (cotas) showing 20.00m horizontally and 10.00m vertically. Scale is 1:50 as indicated in the title block. The plan shows a single rectangular space with no internal divisions, doors, or windows visible. The dimensions are clearly marked with dimension lines and arrows at the corners. Wall thickness appears to be approximately 15cm based on the scale. This appears to be a basic site or conceptual plan (PLANTA) dated 25/06/2026, drawn for a real estate client (Cliente: IMOBILIÁRIA) in São Paulo. Sheet number is 01/03. The plan quality is excellent with precise measurements provided."
+    }
+  },
+  "gemini": {
+    "elapsed_s": 7.1,
+    "result": {
+      "plan_type": "retangulo",
+      "rooms": [
+        {
+          "name": "Ambiente 1",
+          "shape": "rectangle",
+          "width_m": 20.0,
+          "length_m": 10.0,
+          "area_m2": 200.0,
+          "perimeter_m": 60.0,
+          "confidence": 1.0
+        }
+      ],
+      "walls": [],
+      "openings": [],
+      "overall_dimensions": {
+        "width_m": 20.0,
+        "length_m": 10.0
+      },
+      "notes": "This is a very basic architectural plan showing a single rectangular space. Explicit dimension lines are provided for both width (20.00m) and length (10.00m). There are no internal divisions, no discernible wall thickness, and no doors or windows indicated. The plan is drawn at a scale of 1:50, as noted in the title block."
+    },
+    "usage": {
+      "promptTokenCount": 695,
+      "candidatesTokenCount": 255,
+      "totalTokenCount": 1734,
+      "promptTokensDetails": [
+        {
+          "modality": "TEXT",
+          "tokenCount": 437
+        },
+        {
+          "modality": "IMAGE",
+          "tokenCount": 258
+        }
+      ],
+      "thoughtsTokenCount": 784,
+      "serviceTier": "standard"
+    }
+  }
+}

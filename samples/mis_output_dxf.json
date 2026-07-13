@@ -1,0 +1,152 @@
+{
+  "pipeline": "draft-c-v1",
+  "extracted_at": "2026-06-29T00:42:51Z",
+  "source": {
+    "type": "dxf",
+    "path": "/tmp/test_plantas_matheus.dxf"
+  },
+  "total_rooms": 4,
+  "rooms": [
+    {
+      "name": "Quadrado 5x5",
+      "area_m2": 25.0,
+      "perimeter_m": 20.0,
+      "width_m": 5.0,
+      "length_m": 5.0,
+      "shape": "rectangle",
+      "faces": [
+        {
+          "label": "piso",
+          "area_m2": 25.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "teto",
+          "area_m2": 25.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "paredes",
+          "area_m2": 56.0,
+          "confidence": 1.0,
+          "qualifier": null
+        }
+      ],
+      "confidence": {
+        "geometry": 1.0,
+        "name": 0.95
+      },
+      "needs_human_review": false,
+      "review_reason": null
+    },
+    {
+      "name": "Retangulo 20x10",
+      "area_m2": 200.0,
+      "perimeter_m": 60.0,
+      "width_m": 20.0,
+      "length_m": 10.0,
+      "shape": "rectangle",
+      "faces": [
+        {
+          "label": "piso",
+          "area_m2": 200.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "teto",
+          "area_m2": 200.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "paredes",
+          "area_m2": 168.0,
+          "confidence": 1.0,
+          "qualifier": null
+        }
+      ],
+      "confidence": {
+        "geometry": 1.0,
+        "name": 0.95
+      },
+      "needs_human_review": false,
+      "review_reason": null
+    },
+    {
+      "name": "Ambiente Externo",
+      "area_m2": 200.0,
+      "perimeter_m": 60.0,
+      "width_m": 20.0,
+      "length_m": 10.0,
+      "shape": "rectangle",
+      "faces": [
+        {
+          "label": "piso",
+          "area_m2": 200.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "teto",
+          "area_m2": 200.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "paredes",
+          "area_m2": 168.0,
+          "confidence": 1.0,
+          "qualifier": null
+        }
+      ],
+      "confidence": {
+        "geometry": 1.0,
+        "name": 0.95
+      },
+      "needs_human_review": false,
+      "review_reason": null
+    },
+    {
+      "name": "Ambiente Interno",
+      "area_m2": 25.0,
+      "perimeter_m": 20.0,
+      "width_m": 5.0,
+      "length_m": 5.0,
+      "shape": "rectangle",
+      "faces": [
+        {
+          "label": "piso",
+          "area_m2": 25.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "teto",
+          "area_m2": 25.0,
+          "confidence": 1.0,
+          "qualifier": null
+        },
+        {
+          "label": "paredes",
+          "area_m2": 56.0,
+          "confidence": 1.0,
+          "qualifier": null
+        }
+      ],
+      "confidence": {
+        "geometry": 1.0,
+        "name": 0.95
+      },
+      "needs_human_review": false,
+      "review_reason": null
+    }
+  ],
+  "fragilities": [],
+  "warnings": [
+    "Entities: 4 LWPOLYLINE, 4 TEXT, 0 MTEXT"
+  ],
+  "elapsed_ms": 5.392313003540039
+}

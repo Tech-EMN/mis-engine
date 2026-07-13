@@ -1,0 +1,99 @@
+{
+  "rows": [
+    {
+      "plant": "quadrado",
+      "model": "claude",
+      "room": "Ambiente \u00danico",
+      "gt_area": 25.0,
+      "ai_area": 25.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 7.0,
+      "match": "\u2705"
+    },
+    {
+      "plant": "quadrado",
+      "model": "gemini",
+      "room": "Ambiente \u00danico",
+      "gt_area": 25.0,
+      "ai_area": 25.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 4.2,
+      "match": "\u2705"
+    },
+    {
+      "plant": "retangulo",
+      "model": "claude",
+      "room": "Ambiente \u00danico",
+      "gt_area": 200.0,
+      "ai_area": 200.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 8.2,
+      "match": "\u2705"
+    },
+    {
+      "plant": "retangulo",
+      "model": "gemini",
+      "room": "Ambiente \u00danico",
+      "gt_area": 200.0,
+      "ai_area": 200.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 7.1,
+      "match": "\u2705"
+    },
+    {
+      "plant": "retangulo_quadrado",
+      "model": "claude",
+      "room": "Ambiente Externo",
+      "gt_area": 200.0,
+      "ai_area": 200.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 8.6,
+      "match": "\u2705"
+    },
+    {
+      "plant": "retangulo_quadrado",
+      "model": "claude",
+      "room": "Ambiente Interno",
+      "gt_area": 25.0,
+      "ai_area": 25.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 8.6,
+      "match": "\u2705"
+    },
+    {
+      "plant": "retangulo_quadrado",
+      "model": "gemini",
+      "room": "Ambiente Externo",
+      "gt_area": 200.0,
+      "ai_area": 200.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 6.4,
+      "match": "\u2705"
+    },
+    {
+      "plant": "retangulo_quadrado",
+      "model": "gemini",
+      "room": "Ambiente Interno",
+      "gt_area": 25.0,
+      "ai_area": 25.0,
+      "error_pct": 0.0,
+      "confidence": 1.0,
+      "elapsed_s": 6.4,
+      "match": "\u2705"
+    }
+  ],
+  "summary": {
+    "rooms_analyzed": 8,
+    "perfect_matches": 8,
+    "avg_error": 0.0,
+    "hallucinations": 0,
+    "omissions": 0
+  }
+}

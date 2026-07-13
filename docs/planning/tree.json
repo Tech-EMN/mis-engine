@@ -1,0 +1,249 @@
+{
+  "project": "mis-evidence-test",
+  "updated": "2026-06-29T00:43:43.675717Z",
+  "current": "L1-documentacao-relatorio-final-de-evidencias-recomen",
+  "rcu_max_tokens": 18000,
+  "rcu_min_tokens": 2500,
+  "nodes": [
+    {
+      "id": "L0-mis-evidence-test-validar-empiricamente-as-premiss",
+      "parent": null,
+      "layer": 0,
+      "status": "in_progress",
+      "estimate_tokens": null,
+      "is_rcu": false
+    },
+    {
+      "id": "L1-walking-skeleton-teste-draft-a-vision-ai-nos-3-pdf",
+      "parent": "L0-mis-evidence-test-validar-empiricamente-as-premiss",
+      "layer": 1,
+      "status": "in_progress",
+      "estimate_tokens": 18000,
+      "is_rcu": false
+    },
+    {
+      "id": "L1-mvp-draft-c-hibrido-parsing-deterministico-ai-sema",
+      "parent": "L0-mis-evidence-test-validar-empiricamente-as-premiss",
+      "layer": 1,
+      "status": "in_progress",
+      "estimate_tokens": 35000,
+      "is_rcu": false
+    },
+    {
+      "id": "L1-documentacao-relatorio-final-de-evidencias-recomen",
+      "parent": "L0-mis-evidence-test-validar-empiricamente-as-premiss",
+      "layer": 1,
+      "status": "pending",
+      "estimate_tokens": 8000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-0-setup-ambiente-python-api-keys-converter-pd",
+      "parent": "L1-walking-skeleton-teste-draft-a-vision-ai-nos-3-pdf",
+      "layer": 2,
+      "status": "in_progress",
+      "estimate_tokens": 3000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-1-extracao-enviar-3-pngs-ao-gpt-4o-vision-com",
+      "parent": "L1-walking-skeleton-teste-draft-a-vision-ai-nos-3-pdf",
+      "layer": 2,
+      "status": "in_progress",
+      "estimate_tokens": 5000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-2-ground-truth-extrair-cotas-reais-dos-pdfs-v",
+      "parent": "L1-walking-skeleton-teste-draft-a-vision-ai-nos-3-pdf",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 3000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-3-dashboard-html-tabela-comparativa-ia-vs-rea",
+      "parent": "L1-walking-skeleton-teste-draft-a-vision-ai-nos-3-pdf",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 4000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-4-relatorio-documentar-onde-funcionou-onde-qu",
+      "parent": "L1-walking-skeleton-teste-draft-a-vision-ai-nos-3-pdf",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 3000,
+      "is_rcu": false
+    },
+    {
+      "id": "L3-rcu-instalar-pdf2image-e-verificar-poppler-testar-",
+      "parent": "L2-fase-0-setup-ambiente-python-api-keys-converter-pd",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-configurar-openai-api-key-validar-acesso-a-gpt",
+      "parent": "L2-fase-0-setup-ambiente-python-api-keys-converter-pd",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-escrever-prompt-template-para-vision-llm-instr",
+      "parent": "L2-fase-1-extracao-enviar-3-pngs-ao-gpt-4o-vision-com",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-enviar-planta-quadrado-ao-gpt-4o-vision-regist",
+      "parent": "L2-fase-1-extracao-enviar-3-pngs-ao-gpt-4o-vision-com",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2800,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-enviar-planta-retangulo-ao-gpt-4o-vision-regis",
+      "parent": "L2-fase-1-extracao-enviar-3-pngs-ao-gpt-4o-vision-com",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2800,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-enviar-planta-retangulo-quadrado-ao-gpt-4o-vis",
+      "parent": "L2-fase-1-extracao-enviar-3-pngs-ao-gpt-4o-vision-com",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2800,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-extrair-cotas-e-dimensoes-dos-pdfs-via-pdfplum",
+      "parent": "L2-fase-2-ground-truth-extrair-cotas-reais-dos-pdfs-v",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-criar-html-estatico-com-tabela-comparativa-ia-",
+      "parent": "L2-fase-3-dashboard-html-tabela-comparativa-ia-vs-rea",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-adicionar-grafico-de-barras-e-metricas-de-prec",
+      "parent": "L2-fase-3-dashboard-html-tabela-comparativa-ia-vs-rea",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-adicionar-secao-de-observacoes-qualitativas-o-",
+      "parent": "L2-fase-3-dashboard-html-tabela-comparativa-ia-vs-rea",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-estruturar-relatorio-markdown-capa-sumario-exe",
+      "parent": "L2-fase-4-relatorio-documentar-onde-funcionou-onde-qu",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-adicionar-secao-de-recomendacao-qual-draft-seg",
+      "parent": "L2-fase-4-relatorio-documentar-onde-funcionou-onde-qu",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-buscar-1-planta-real-da-internet-apartamento-s",
+      "parent": "L2-fase-1-extracao-enviar-3-pngs-ao-gpt-4o-vision-com",
+      "layer": 3,
+      "status": "partial",
+      "estimate_tokens": 3000,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-adicionar-se-o-limita-es-o-que-este-teste-n-o-",
+      "parent": "L2-fase-3-dashboard-html-tabela-comparativa-ia-vs-rea",
+      "layer": 3,
+      "status": "done",
+      "estimate_tokens": 2500,
+      "is_rcu": true
+    },
+    {
+      "id": "L3-rcu-opcional-se-tempo-instalar-ezdxf-e-testar-leit",
+      "parent": "L2-fase-0-setup-ambiente-python-api-keys-converter-pd",
+      "layer": 3,
+      "status": "partial",
+      "estimate_tokens": 2000,
+      "is_rcu": true
+    },
+    {
+      "id": "L1-walking-skeleton-dwg-pipeline-oda-ezdxf-shapely-ex",
+      "parent": "L0-mis-evidence-test-validar-empiricamente-as-premiss",
+      "layer": 1,
+      "status": "done",
+      "estimate_tokens": 15000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-dwg-0-instalar-oda-file-converter-ezdxf-shape",
+      "parent": "L1-walking-skeleton-dwg-pipeline-oda-ezdxf-shapely-ex",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 3000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-dwg-1-entity-inventory-script-contar-lwpolyli",
+      "parent": "L1-walking-skeleton-dwg-pipeline-oda-ezdxf-shapely-ex",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 3000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-dwg-2-extrair-lwpolyline-fechadas-shapely-pol",
+      "parent": "L1-walking-skeleton-dwg-pipeline-oda-ezdxf-shapely-ex",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 4000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-dwg-3-associar-text-mtext-a-polygonos-nome-do",
+      "parent": "L1-walking-skeleton-dwg-pipeline-oda-ezdxf-shapely-ex",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 3000,
+      "is_rcu": false
+    },
+    {
+      "id": "L2-fase-dwg-4-integrar-pipeline-dwg-com-pipeline-pdf-",
+      "parent": "L1-walking-skeleton-dwg-pipeline-oda-ezdxf-shapely-ex",
+      "layer": 2,
+      "status": "done",
+      "estimate_tokens": 2000,
+      "is_rcu": false
+    }
+  ]
+}

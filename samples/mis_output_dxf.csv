@@ -1,0 +1,5 @@
+Categoria;Ambiente;Área (m²);Perímetro (m);Confiança;Revisão Necessária
+Categoria 01;Quadrado 5x5;25.00;20.00;95%;NÃO
+Categoria 02;Retangulo 20x10;200.00;60.00;95%;NÃO
+Categoria 03;Ambiente Externo;200.00;60.00;95%;NÃO
+Categoria 04;Ambiente Interno;25.00;20.00;95%;NÃO
