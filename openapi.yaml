@@ -1,0 +1,466 @@
+openapi: "3.0.3"
+info:
+  title: MIS Engine API
+  description: |
+    Backend do MIS (MGroup Intelligence System) — pipeline de extração e análise 
+    de projetos arquitetônicos (PDF/DXF/DWG) com camada semântica de IA.
+    
+    **Fluxo assíncrono:** POST /extract → 202 + task_id → poll GET /extract/{task_id}/status
+  version: "1.0.0"
+  contact:
+    name: ATRIA Corp
+    email: projetos@atriacorp.com.br
+
+servers:
+  - url: http://localhost:8000/api/v1
+    description: Local development
+  - url: https://mis-engine-{host}/api/v1
+    description: Production (platform TBD)
+    variables:
+      host:
+        default: production.up.railway.app
+        enum:
+          - production.up.railway.app
+          - mis-engine.onrender.com
+
+paths:
+  /health:
+    get:
+      operationId: health_check
+      summary: Healthcheck do serviço
+      description: Retorna status do pipeline, versão, e dependências.
+      tags: [System]
+      responses:
+        "200":
+          description: Serviço operacional
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: ok
+                version: "1.0.0"
+                pipeline: draft-c-v2
+                dependencies:
+                  ezdxf: "1.4.0"
+                  shapely: "2.0.7"
+                  supabase: connected
+                uptime_seconds: 3600
+
+  /extract:
+    post:
+      operationId: extract_project
+      summary: Iniciar extração de projeto (ASSÍNCRONO)
+      description: |
+        Recebe arquivo de projeto (PDF, DXF, DWG) e inicia extração assíncrona.
+        Retorna 202 Accepted com task_id para polling.
+        
+        **Formatos aceitos:** PDF (planta baixa), DXF (AutoCAD), DWG (⚠️ requer conversão prévia)
+        **Tempo estimado:** DXF < 1s, PDF 5-30s (Claude Vision), DWG requer DWG→DXF prévio
+      tags: [Extraction]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Arquivo de projeto (PDF/DXF/DWG)
+                project_name:
+                  type: string
+                  description: Nome opcional do projeto
+                  example: "Residencial Parque Verde"
+      responses:
+        "202":
+          description: Extração iniciada — use task_id para polling
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExtractAccepted"
+              example:
+                task_id: "550e8400-e29b-41d4-a716-446655440000"
+                status: pending
+                status_url: "/api/v1/extract/550e8400-e29b-41d4-a716-446655440000/status"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "413":
+          description: Arquivo muito grande (máx 50MB)
+        "415":
+          description: Formato não suportado
+        "422":
+          $ref: "#/components/responses/ValidationError"
+
+  /extract/{task_id}/status:
+    get:
+      operationId: get_extraction_status
+      summary: Consultar status de extração
+      description: |
+        Polling endpoint para verificar progresso da extração assíncrona.
+        
+        **Estados possíveis:** pending → processing → done | failed
+        **Polling sugerido:** 1s para DXF, 5s para PDF
+      tags: [Extraction]
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: ID da tarefa retornado pelo POST /extract
+      responses:
+        "200":
+          description: Status da extração
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExtractStatus"
+              examples:
+                processing:
+                  value:
+                    task_id: "550e8400-e29b-41d4-a716-446655440000"
+                    status: processing
+                    progress_pct: 60
+                    source_type: dxf
+                done:
+                  value:
+                    task_id: "550e8400-e29b-41d4-a716-446655440000"
+                    status: done
+                    progress_pct: 100
+                    source_type: dxf
+                    result:
+                      total_rooms: 5
+                      rooms:
+                        - name: Sala
+                          area_m2: 25.3
+                          perimeter_m: 20.2
+                          width_m: 5.5
+                          length_m: 4.6
+                          shape: rectangle
+                          confidence_geometry: 1.0
+                          confidence_name: 0.9
+                          needs_human_review: false
+                      elapsed_ms: 45
+                      warnings: []
+                failed:
+                  value:
+                    task_id: "550e8400-e29b-41d4-a716-446655440000"
+                    status: failed
+                    error: "DXF parsing error: invalid entity at line 42"
+        "404":
+          description: Task não encontrada
+
+  /projects:
+    get:
+      operationId: list_projects
+      summary: Listar projetos processados
+      description: |
+        Retorna lista de projetos extraídos, ordenados por data de criação (mais recente primeiro).
+        Suporta filtros por status e source_type.
+      tags: [Projects]
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, processing, done, failed]
+        - name: source_type
+          in: query
+          schema:
+            type: string
+            enum: [pdf, dxf, dwg]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        "200":
+          description: Lista de projetos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectList"
+              example:
+                total: 42
+                limit: 20
+                offset: 0
+                projects:
+                  - id: "550e8400-e29b-41d4-a716-446655440000"
+                    name: "Residencial Parque Verde"
+                    source_type: dxf
+                    status: done
+                    total_rooms: 5
+                    created_at: "2026-07-15T18:30:00Z"
+
+  /projects/{project_id}:
+    get:
+      operationId: get_project
+      summary: Detalhe de projeto
+      description: Retorna detalhes completos de um projeto extraído, incluindo ambientes.
+      tags: [Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Detalhes do projeto
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectDetail"
+        "404":
+          description: Projeto não encontrado
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required: [status, version]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded, down]
+        version:
+          type: string
+        pipeline:
+          type: string
+        dependencies:
+          type: object
+          additionalProperties:
+            type: string
+        uptime_seconds:
+          type: number
+
+    ExtractAccepted:
+      type: object
+      required: [task_id, status, status_url]
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending]
+        status_url:
+          type: string
+          format: uri-reference
+          description: URL relativa para polling
+
+    ExtractStatus:
+      type: object
+      required: [task_id, status]
+      properties:
+        task_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [pending, processing, done, failed]
+        progress_pct:
+          type: integer
+          minimum: 0
+          maximum: 100
+        source_type:
+          type: string
+          enum: [pdf, dxf, dwg]
+        project_name:
+          type: string
+        result:
+          $ref: "#/components/schemas/ExtractionResult"
+        error:
+          type: string
+          description: Mensagem de erro (apenas quando status=failed)
+
+    ExtractionResult:
+      type: object
+      properties:
+        total_rooms:
+          type: integer
+        rooms:
+          type: array
+          items:
+            $ref: "#/components/schemas/Room"
+        fragilities:
+          type: array
+          items:
+            $ref: "#/components/schemas/Fragility"
+        warnings:
+          type: array
+          items:
+            type: string
+        elapsed_ms:
+          type: number
+
+    Room:
+      type: object
+      required: [name, area_m2, perimeter_m, width_m, length_m, shape]
+      properties:
+        name:
+          type: string
+          example: "Sala de Estar"
+        area_m2:
+          type: number
+          example: 25.3
+        perimeter_m:
+          type: number
+          example: 20.2
+        width_m:
+          type: number
+          example: 5.5
+        length_m:
+          type: number
+          example: 4.6
+        shape:
+          type: string
+          enum: [rectangle, irregular]
+        faces:
+          type: array
+          items:
+            $ref: "#/components/schemas/RoomFace"
+        confidence_geometry:
+          type: number
+          minimum: 0
+          maximum: 1
+        confidence_name:
+          type: number
+          minimum: 0
+          maximum: 1
+        needs_human_review:
+          type: boolean
+        review_reason:
+          type: string
+
+    RoomFace:
+      type: object
+      required: [label, area_m2, confidence]
+      properties:
+        label:
+          type: string
+          enum: [piso, teto, paredes]
+        area_m2:
+          type: number
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+        qualifier:
+          type: string
+          description: Material/acabamento (ex: "azulejo", "alvenaria")
+
+    Fragility:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "F11-TRIGGERED"
+        desc:
+          type: string
+        mitigation:
+          type: string
+
+    ProjectList:
+      type: object
+      required: [total, limit, offset, projects]
+      properties:
+        total:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+        projects:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProjectSummary"
+
+    ProjectSummary:
+      type: object
+      required: [id, name, source_type, status, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        source_type:
+          type: string
+          enum: [pdf, dxf, dwg]
+        status:
+          type: string
+          enum: [pending, processing, done, failed]
+        total_rooms:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+
+    ProjectDetail:
+      type: object
+      required: [id, name, source_type, status, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        source_type:
+          type: string
+          enum: [pdf, dxf, dwg]
+        status:
+          type: string
+          enum: [pending, processing, done, failed]
+        created_at:
+          type: string
+          format: date-time
+        result:
+          $ref: "#/components/schemas/ExtractionResult"
+
+    Error:
+      type: object
+      required: [error, detail]
+      properties:
+        error:
+          type: string
+        detail:
+          type: string
+        code:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    ValidationError:
+      description: Erro de validação
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+tags:
+  - name: System
+    description: Healthcheck e informações do serviço
+  - name: Extraction
+    description: Pipeline de extração assíncrona
+  - name: Projects
+    description: Consulta de projetos processados
