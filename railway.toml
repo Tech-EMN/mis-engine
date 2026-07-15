@@ -1,0 +1,19 @@
+# MIS Engine — Railway config
+# https://docs.railway.com/reference/deployments
+
+[build]
+  builder = "DOCKERFILE"
+  dockerfilePath = "Dockerfile"
+
+[deploy]
+  numReplicas = 1
+  startCommand = "python main.py"
+  healthcheckPath = "/api/v1/health"
+  healthcheckTimeout = 10
+  restartPolicyType = "ON_FAILURE"
+
+[service]
+  port = 8000
+
+[environment]
+  MIS_SECRETS_PATH = "/etc/secrets/openclaw-secrets.json"

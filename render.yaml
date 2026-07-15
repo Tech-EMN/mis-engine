@@ -1,0 +1,16 @@
+# MIS Engine — Render config
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: mis-engine
+    runtime: docker
+    repo: https://github.com/Tech-EMN/mis-engine
+    branch: main
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: MIS_SECRETS_PATH
+        value: /etc/secrets/openclaw-secrets.json
+    autoDeploy: true
