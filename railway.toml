@@ -7,13 +7,9 @@
 
 [deploy]
   numReplicas = 1
-  startCommand = "python main.py"
   healthcheckPath = "/api/v1/health"
-  healthcheckTimeout = 10
+  healthcheckTimeout = 30
   restartPolicyType = "ON_FAILURE"
 
 [service]
   port = 8000
-
-[environment]
-  MIS_SECRETS_PATH = "/etc/secrets/openclaw-secrets.json"
