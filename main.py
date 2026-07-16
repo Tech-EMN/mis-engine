@@ -39,7 +39,7 @@ from db import store  # dual-mode: Supabase + in-memory
 # CONFIGURATION
 # ============================================================
 
-load_dotenv()
+load_dotenv(override=False)  # no-op if .env missing (container-friendly)
 
 # Logging: JSON structured
 class JsonFormatter(logging.Formatter):
