@@ -29,6 +29,14 @@ SECRETS_PATH = os.environ.get(
 )
 
 def _load_config():
+    # Tenta variáveis de ambiente primeiro (container Railway)
+    url = os.environ.get("SUPABASE_LUG_URL")
+    key = os.environ.get("SUPABASE_LUG_SECRET_KEY")
+    if url and key:
+        logger.info("Supabase config loaded from environment variables")
+        return {"url": url, "key": key}
+
+    # Fallback: arquivo de secrets (dev local)
     try:
         with open(SECRETS_PATH) as f:
             s = json.load(f)
