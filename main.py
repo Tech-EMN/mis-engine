@@ -276,13 +276,29 @@ def _run_extraction(task_id: str, file_path: str, ext: str):
         
         result_dict = json.loads(pip.to_json(result))
         
+        # Validate result before marking done
+        has_fatal_warning = any(
+            "Failed to read" in w for w in result.warnings
+        )
+        too_few_rooms_empty = len(result.rooms) == 0 and ext in ('.dxf', '.pdf')
+        
+        if has_fatal_warning or too_few_rooms_empty:
+            status = "failed"
+            error_msg = "Nenhum ambiente detectado"
+            if has_fatal_warning:
+                error_msg = "; ".join(w for w in result.warnings if "Failed" in w)
+        else:
+            status = "done"
+            error_msg = None
+        
         store.update_task(
             task_id,
-            status="done",
-            progress_pct=100,
+            status=status,
+            progress_pct=100 if status == "done" else 0,
             source_type=result.source_type.value,
             total_rooms=len(result.rooms),
             result=result_dict,
+            error=error_msg,
             completed_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         )
         logger.info("Extraction complete", extra={
