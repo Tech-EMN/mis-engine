@@ -203,6 +203,7 @@ class SupabaseStore:
         # Update project status
         self.update_project(supabase_project_id,
             status=task["status"],
+            source_type=task.get("source_type"),
             total_rooms=len(rooms),
             error=task.get("error"),
             warnings=task.get("warnings", []),

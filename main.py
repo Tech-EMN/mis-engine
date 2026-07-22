@@ -281,6 +281,7 @@ def _run_extraction(task_id: str, file_path: str, ext: str):
             status="done",
             progress_pct=100,
             source_type=result.source_type.value,
+            total_rooms=len(result.rooms),
             result=result_dict,
             completed_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         )
